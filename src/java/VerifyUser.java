@@ -2,61 +2,55 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class RegistrationServlet extends HttpServlet {
+public class VerifyUser extends HttpServlet {
 
-    Connection con; PreparedStatement ps;
-    
-    public void init(){
-        try{
-        con=mypkg.Data.connect();
-        String sql="INSERT INTO users VALUES(?,?,?,?,?)";
-        ps=con.prepareStatement(sql);
-
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
-    public void destroy(){
-        try{
-            con.close();
-        }catch(Exception e){
-            e.printStackTrace();
-        }
-    }
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            PrintWriter out=response.getWriter();
-            //reads the data
-            String email=request.getParameter("email");
-            String password=request.getParameter("password");
-            String name=request.getParameter("name");
-            String address=request.getParameter("address");
-            String mobile=request.getParameter("mobile");
-            //process the data
+
+        PrintWriter out = response.getWriter();
+        String email=request.getParameter("email");
+        String password=request.getParameter("password");
+        String utype=request.getParameter("utype");
+        
+        if(utype.equals("admin")){
+            //admin is trying to login
+            if(email.equals("admin@gmail.com") && password.equals("indore")){
+                //out.println("Welcome Admin");
+                //we will show adminpage
+                response.sendRedirect("adminpage.jsp");
+            }else{
+                out.println("Invalid Admin Credentials");
+            }
+        }else if(utype.equals("buyer")){
+            //buyer is trying to login
             try{
-                ps.setString(1, email);
+                Connection con=mypkg.Data.connect();
+                String sql="SELECT * FROM USERS WHERE email=? AND password=?";
+                PreparedStatement ps=con.prepareStatement(sql);
+                ps.setString(1,email);
                 ps.setString(2, password);
-                ps.setString(3, name);
-                ps.setString(4, address);
-                ps.setString(5, mobile);
-                ps.executeUpdate();
-                out.println("<html>");
-                out.println("<body>");
-                out.println("<hr>");
-                out.println("<h3>Registration Completed</h3>");
-                out.println("<hr>");
-                out.println("<h5><a href=index.jsp>Login-Now</a></h5>");
-                out.println("</body>");
-                out.println("</html>");
+                ResultSet rs=ps.executeQuery();
+                boolean found=rs.next();
+                if(found){
+                    //out.println("Welcome Buyer");
+                    //we will show buyerpage
+                    response.sendRedirect("buyerpage.jsp");
+                }else{
+                    out.println("Invalid Buyer Credentials");
+                }
+                
             }catch(Exception e){
                 out.println(e);
             }
-
+            
+            
+        }
         
     }
 
