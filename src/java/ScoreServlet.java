@@ -1,43 +1,28 @@
 import java.io.IOException;
 import java.io.PrintWriter;
-import java.sql.Connection;
-import java.sql.PreparedStatement;
-import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-public class CategoryServlet extends HttpServlet {
+public class ScoreServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-            //fetch-all-categories-from-DB
+        
+            String cname=request.getParameter("country");
+        
+            int indiaScore=256;
+            int australiaScore=245;
+            
             PrintWriter out=response.getWriter();
-            String sql="SELECT distinct pcat FROM products";
-            try{
-            Connection con=mypkg.Data.connect();
-            PreparedStatement ps=con.prepareStatement(sql);
-            ResultSet rs=ps.executeQuery();
-            //show-them-on-a-web-page
-            out.println("<html>");
-            out.println("<body>");
-            out.println("<h3>Category-Page</h3>");
-            out.println("<h4>Click-Desired-Category</h4>");
-            out.println("<hr>");
-            while(rs.next()){
-                String s=rs.getString(1);
-                out.println("<a href=ProductListServlet?ctg="+s+">");
-                out.println(s);
-                out.println("</a><br>");
+            if(cname.equals("india")){
+                out.println("India Score : "+indiaScore);
+            }else{
+                out.println("Australia Score : "+australiaScore);
             }
-            out.println("<hr>");
-            out.println("</body>");
-            out.println("</html>");
-            con.close();
-            }catch(Exception e){
-                out.println(e);
-        }
+            
+            out.close();
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
