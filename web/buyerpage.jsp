@@ -4,6 +4,7 @@
         <hr>
         <pre>
             <a href="CategoryServlet">Explore-Store</a>
+            <a href="DisplayCart">View-Cart</a>
             <a href="index.jsp">Logout</a>
         </pre>
         <hr>

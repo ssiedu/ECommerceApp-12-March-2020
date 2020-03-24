@@ -1,5 +1,8 @@
 import java.io.IOException;
 import java.io.PrintWriter;
+import java.sql.Connection;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,6 +18,49 @@ public class ProductListServlet extends HttpServlet {
             String category=request.getParameter("ctg");
             //we will run select query and fetch all the products of this category
             String sql="SELECT * FROM products WHERE pcat=?";
+            try{
+                Connection con=mypkg.Data.connect();
+                PreparedStatement ps=con.prepareStatement(sql);
+                ps.setString(1, category);
+                ResultSet rs=ps.executeQuery();
+                out.println("<html>");
+                out.println("<body>");
+                
+                out.println("<h3>Product-List</h3>");
+                 out.println("<hr>");
+                out.println("<table border=2>");
+                out.println("<tr>");
+                out.println("<th>Code</th>");
+                out.println("<th>Name</th>");
+                out.println("<th>Desc</th>");
+                out.println("<th>Category</th>");
+                out.println("<th>Price</th>");
+                out.println("</tr>");
+                while(rs.next()){
+                    String code=rs.getString(1);
+                    String pname=rs.getString(2);
+                    String pdesc=rs.getString(3);
+                    String pcat=rs.getString(4);
+                    String price=rs.getString(5);
+                    out.println("<tr>");
+                    out.println("<td>"+code+"</td>");
+                    out.println("<td>"+pname+"</td>");
+                    out.println("<td>"+pdesc+"</td>");
+                    out.println("<td>"+pcat+"</td>");
+                    out.println("<td>"+price+"</td>");
+                    out.println("<td><a href=CartManager?id="+code+">buy</td>");
+                    out.println("</tr>");
+                }
+                out.println("</table>");
+                out.println("<hr>");
+                out.println("<a href=CategoryServlet>Category-Page</a><br>");
+                out.println("<a href=buyerpage.jsp>Buyer-Page</a>");
+                out.println("</body>");
+                out.println("</html>");
+                con.close();
+            }catch(Exception e){
+                out.println(e);
+            }
             out.close();
             
     }
