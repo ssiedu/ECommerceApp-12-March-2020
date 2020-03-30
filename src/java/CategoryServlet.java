@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -12,6 +13,23 @@ public class CategoryServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+            //here we are reading the Cookie ("userchoice") so that we can scroll focused adv.
+            //step-1 (obtaining all the cookies coming along with the request)
+            Cookie ck[]=request.getCookies();
+            //step-2 (searching for a cookie named userchoice)
+            String choice="ALL";
+            if(ck!=null){
+                for(Cookie c:ck){
+                    String name=c.getName();
+                    if(name.equals("userchoice")){
+                        choice=c.getValue();
+                        break;
+                    }
+                }
+            }
+            
+            
             //fetch-all-categories-from-DB
             PrintWriter out=response.getWriter();
             String sql="SELECT distinct pcat FROM products";
@@ -23,6 +41,8 @@ public class CategoryServlet extends HttpServlet {
             out.println("<html>");
             out.println("<body>");
             out.println("<h3>Category-Page</h3>");
+            
+            out.println("<h4><marquee>Attractive Offers On "+choice+" Products</marquee></h4>");
             out.println("<h4>Click-Desired-Category</h4>");
             out.println("<hr>");
             while(rs.next()){

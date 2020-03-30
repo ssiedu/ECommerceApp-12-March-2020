@@ -4,6 +4,7 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.servlet.ServletException;
+import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -16,6 +17,19 @@ public class ProductListServlet extends HttpServlet {
             //This servlet will display all products belongs to the category clicked by user
             //how this servlet will know about the linked clicked by user?
             String category=request.getParameter("ctg");
+            
+            //we wish to store user choice (category) to client disk so that in next request browser
+            //will send it back to server and any other sevlet can read it.
+            //we will write this information using a Cookie.
+            //step-1 create a cookie object
+            
+            Cookie ck=new Cookie("userchoice", category);
+            //step-2 set its maximum age
+            ck.setMaxAge(50000);//seconds
+            //step-3 add the cookie object to response
+            response.addCookie(ck);
+            
+            
             //we will run select query and fetch all the products of this category
             String sql="SELECT * FROM products WHERE pcat=?";
             try{
