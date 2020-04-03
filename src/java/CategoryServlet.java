@@ -8,12 +8,23 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class CategoryServlet extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         
+            //here we are reading the email address of currently logged-in user from session
+            //which was stored to session by VerifyUser servlet
+            //step-1 (fetch the session object created for this user)
+            HttpSession session=request.getSession();
+            //step-2 (read the data from sesion object)
+            String email=(String)session.getAttribute("id");
+            if(email==null){
+                response.sendRedirect("index.jsp");
+            }
+            
             //here we are reading the Cookie ("userchoice") so that we can scroll focused adv.
             //step-1 (obtaining all the cookies coming along with the request)
             Cookie ck[]=request.getCookies();
@@ -41,7 +52,7 @@ public class CategoryServlet extends HttpServlet {
             out.println("<html>");
             out.println("<body>");
             out.println("<h3>Category-Page</h3>");
-            
+            out.println("<h3>Welcome "+email+"</h3>");
             out.println("<h4><marquee>Attractive Offers On "+choice+" Products</marquee></h4>");
             out.println("<h4>Click-Desired-Category</h4>");
             out.println("<hr>");

@@ -7,6 +7,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
 public class VerifyUser extends HttpServlet {
 
@@ -38,8 +39,12 @@ public class VerifyUser extends HttpServlet {
                 ResultSet rs=ps.executeQuery();
                 boolean found=rs.next();
                 if(found){
-                    //out.println("Welcome Buyer");
-                    //we will show buyerpage
+                    //storing the email to session object (just to make it available for other pages)
+                    //step-1 (fetch the session object)
+                    HttpSession session=request.getSession();
+                    //step-2 (write the data into session object)
+                    session.setAttribute("id", email);
+                    
                     response.sendRedirect("buyerpage.jsp");
                 }else{
                     out.println("Invalid Buyer Credentials");
