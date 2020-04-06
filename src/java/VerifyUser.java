@@ -44,7 +44,7 @@ public class VerifyUser extends HttpServlet {
                     HttpSession session=request.getSession();
                     //step-2 (write the data into session object)
                     session.setAttribute("id", email);
-                    
+                    //session.putValue("id", email);
                     response.sendRedirect("buyerpage.jsp");
                 }else{
                     out.println("Invalid Buyer Credentials");

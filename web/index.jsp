@@ -1,3 +1,6 @@
+<%
+    //session.setMaxInactiveInterval(150);
+%>
 <html>
     <body>
         <h3>ECommerce-App</h3>

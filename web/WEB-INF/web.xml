@@ -28,6 +28,10 @@
         <servlet-name>CartManager</servlet-name>
         <servlet-class>CartManager</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>KillSession</servlet-name>
+        <servlet-class>KillSession</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>RegistrationServlet</servlet-name>
         <url-pattern>/RegistrationServlet</url-pattern>
@@ -55,6 +59,10 @@
     <servlet-mapping>
         <servlet-name>CartManager</servlet-name>
         <url-pattern>/CartManager</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>KillSession</servlet-name>
+        <url-pattern>/KillSession</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>
