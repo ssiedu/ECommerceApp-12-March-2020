@@ -3,7 +3,7 @@
 %>
 <html>
     <body>
-        <h3>ECommerce-App</h3>
+                <h3>ECommerce-App</h3>
         <hr>
         <form action="VerifyUser" method="get">
             <table border="0">

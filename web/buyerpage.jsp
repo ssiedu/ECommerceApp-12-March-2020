@@ -1,3 +1,6 @@
+<%--
+    its a jsp comment
+--%>
 <%
     int n=session.getMaxInactiveInterval();
     String id=session.getId();
@@ -17,6 +20,8 @@
         <h3>BUYER-DASHBOARD</h3>
         <hr>
         <pre>
+            <a href="search.jsp">Search-Product-By-Code</a>
+            <a href="discount.jsp">Know-Your-Discount</a>
             <a href="CategoryServlet">Explore-Store</a>
             <a href="DisplayCart">View-Cart</a>
             <a href="KillSession">Logout</a>
