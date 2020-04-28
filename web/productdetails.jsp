@@ -1,3 +1,5 @@
+<%@page errorPage="myerrorpage.jsp" %>
+<%@include  file="info.jsp"%>
 <%!
     private int x;
 %>

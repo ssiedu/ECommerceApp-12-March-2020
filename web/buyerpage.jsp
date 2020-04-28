@@ -1,3 +1,5 @@
+<%@taglib uri="/WEB-INF/tlds/mylib.tld" prefix="sample" %>
+<%@include file="info.jsp" %>
 <%--
     its a jsp comment
 --%>
@@ -14,12 +16,14 @@
 %>
 <html>
     <body>
+        <sample:welcome/>
         <h3>Welcome <%=email%></h3>
-        <h4>You are with us since <%=dt%> </h4>
-        <h5>If you remain idle for <%=n%> seconds, your session will expire</h5>
+<!--        <h4>You are with us since <%=dt%> </h4>
+        <h5>If you remain idle for <%=n%> seconds, your session will expire</h5>-->
         <h3>BUYER-DASHBOARD</h3>
         <hr>
         <pre>
+            <a href="viewprices.jsp">Price-List</a>
             <a href="search.jsp">Search-Product-By-Code</a>
             <a href="discount.jsp">Know-Your-Discount</a>
             <a href="CategoryServlet">Explore-Store</a>

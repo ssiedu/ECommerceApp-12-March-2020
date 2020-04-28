@@ -1,10 +1,12 @@
-<%
-    //session.setMaxInactiveInterval(150);
-%>
+<%@include  file="info.jsp" %>
+
+<%@taglib  uri="/WEB-INF/tlds/mylib.tld" prefix="test" %>
+
 <html>
     <body>
-                <h3>ECommerce-App</h3>
-        <hr>
+        
+        <test:welcome/>
+        
         <form action="VerifyUser" method="get">
             <table border="0">
             <tr>
